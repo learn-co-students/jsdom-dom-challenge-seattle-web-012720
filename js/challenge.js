@@ -39,6 +39,7 @@ minus.addEventListener("click", function() {
         c = document.querySelector(".likes"),
         d = void 0;
     if ([].concat(_toConsumableArray(c.children)).map(function(a) {
+            debugger;
             return parseInt(a.dataset.num)
         }).includes(b)) {
         d = document.querySelector('[data-num="' + b + '"]');
