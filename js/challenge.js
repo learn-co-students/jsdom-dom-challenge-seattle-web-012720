@@ -1,9 +1,11 @@
-
+//declare paused as false on load.
+let paused = false;
+let interval = null;
 
 //start clock
 function counter() {
     let time = 0;
-    window.setInterval(function() {
+    interval = window.setInterval(function() {
         let time = document.getElementById("counter").innerText;
         time = parseInt(time);
         time = time + 1;
@@ -29,7 +31,6 @@ function createLike(number) {
     const thisLike = document.createElement("li")
     thisLike.id = `${number}-likes`;
     thisLike.innerHTML = `The number ${number} has <span id="${number}">1</span> like.`;
-    // console.log(thisLike);
     likeList[0].appendChild(thisLike);
 }
 function addLike(number) {
@@ -37,8 +38,42 @@ function addLike(number) {
     const span = document.getElementById(`${number}`);
     let likeNumber = span.innerText;
     let newNumber = parseInt(likeNumber) + 1;
-    // console.log(newNumber);
     span.innerText = newNumber;
+}
+
+//pause functionality
+function pause() {
+    const pauseButton = document.getElementById("pause");
+    pauseButton.innerText = "resume";
+    const counter = document.getElementById("counter").innerText
+    paused = true;
+    const minusBtn = document.getElementById("minus");
+    const plusBtn = document.getElementById("plus");
+    const heartBtn = document.getElementById("heart");
+    minusBtn.disabled = true;
+    plusBtn.disabled = true;
+    heartBtn.disabled = true;
+    clearInterval(interval);
+};
+function unpause() {
+    const pauseButton = document.getElementById("pause");
+    pauseButton.innerText = "pause";
+    paused = false;
+    const minusBtn = document.getElementById("minus");
+    const plusBtn = document.getElementById("plus");
+    const heartBtn = document.getElementById("heart");
+    minusBtn.disabled = false;
+    plusBtn.disabled = false;
+    heartBtn.disabled = false;
+    counter();
+}
+
+//comment functionality
+function addComment(comment) {
+    const commentBox = document.getElementById("list");
+    const p  = document.createElement("p");
+    p.innerText = comment;
+    commentBox.appendChild(p);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -65,7 +100,24 @@ document.addEventListener("DOMContentLoaded", function() {
             createLike(number);
         }
     })
+    
+    const pauseButton = document.getElementById("pause")
+    pauseButton.addEventListener("click", function(){
+        // pause counter if pause is false, unpause if pause is false
+        if (paused) {
+            unpause()
+        } else {
+            pause()
+        }
+    });
 
+    const commentForm = document.getElementById("comment-form")
+    commentForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const comment = event.target["comment"].value;
+        addComment(comment);
+        // console.log(p);
+    })
 
 })
 
