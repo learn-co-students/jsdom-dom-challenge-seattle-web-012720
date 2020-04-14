@@ -5,7 +5,15 @@ document.addEventListener('DOMContentLoaded', function() {
     likeTimer();
     addComment();
 })
+    // global select counter
     let timer = document.getElementById("counter")
+
+    // div comment section append new list
+    const form = document.getElementById('comment-form')
+    const list = document.getElementById('list')
+    const ul = document.createElement('ul')
+    list.appendChild(ul)
+
 function startTimer(){
     parseInt(timer.innerText++);
 };
@@ -46,19 +54,18 @@ function likeTimer() {
     });
 };
 
-    const form = document.getElementById('comment-form')
-    const list = document.getElementById('list')
-    const ul = document.createElement('ul')
-    list.appendChild(ul)
-
 function addComment() {
     form.addEventListener('submit', function(event) {
         event.preventDefault();
-        const comment = document.createElement('li')
-        comment.innerHTML = event.target['comment-input'].value
-        ul.appendChild(comment)
+        appendComment(event.target['comment-input'].value)
         event.target.reset();
     })
+}
+    
+function appendComment(event) {
+    const comment = document.createElement('li')
+        comment.innerHTML = event
+        ul.appendChild(comment)
 }
 
 
