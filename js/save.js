@@ -32,6 +32,20 @@ function decrementTimer() {
     });
 };
 
+function addComment() {
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        appendComment(event.target['comment-input'].value)
+        event.target.reset();
+    })
+}
+    
+function appendComment(event) {
+    const comment = document.createElement('li')
+        comment.innerHTML = event
+        ul.appendChild(comment)
+}
+    // stores all liked numbers
     const likeArray = [ ]
 function likeTimer() {
     const likeButton = document.getElementById('heart');
@@ -54,19 +68,6 @@ function likeTimer() {
     });
 };
 
-function addComment() {
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        appendComment(event.target['comment-input'].value)
-        event.target.reset();
-    })
-}
-    
-function appendComment(event) {
-    const comment = document.createElement('li')
-        comment.innerHTML = event
-        ul.appendChild(comment)
-}
 
 
 
